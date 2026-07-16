@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hope4Future — Media Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* ===== CSS YOTE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #0a6b3c;
+            --primary-dark: #064a28;
+            --gold: #f5b342;
+            --white: #ffffff;
+            --bg-light: #f8fafc;
+            --text-dark: #1a2a3a;
+            --text-light: #4a5a6a;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            line-height: 1.7;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: var(--text-dark);
+        }
+        .btn-primary:hover {
+            background: #e0a33a;
+            transform: translateY(-3px);
+        }
+        .btn-secondary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-secondary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: var(--white);
+        }
+        .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-3px);
+        }
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 14px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo i {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+        .logo span {
+            color: var(--gold);
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .nav-links .btn {
+            padding: 10px 28px;
+            font-size: 0.9rem;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: var(--white);
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 2.8rem;
+        }
+        .page-header h1 span {
+            color: var(--gold);
+        }
+        .page-header p {
+            max-width: 600px;
+            margin: 12px auto 0;
+            opacity: 0.9;
+        }
+
+        /* MEDIA CENTER TABS */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--white);
+            box-shadow: var(--shadow);
+            color: var(--text-light);
+        }
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* MEDIA GRID */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .media-item {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+        .media-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+        .media-item .media-thumb {
+            width: 100%;
+            height: 200px;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #9ca3af;
+            overflow: hidden;
+        }
+        .media-item .media-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .media-item .media-body {
+            padding: 16px 20px 20px;
+        }
+        .media-item .media-body h4 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            color: var(--primary);
+        }
+        .media-item .media-body p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .media-item .media-body .meta {
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .media-item .media-body .meta a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .media-item .media-body .meta a:hover {
+            color: var(--gold);
+        }
+        .media-item .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        .media-item .delete-btn:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+
+        /* ADD FORM */
+        .add-form {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        .add-form h3 {
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+        .add-form .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .add-form input,
+        .add-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background: var(--bg-light);
+        }
+        .add-form input:focus,
+        .add-form textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        .add-form textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .add-form .full-width {
+            grid-column: 1 / -1;
+        }
+        .add-form .btn {
+            grid-column: 1 / -1;
+            justify-self: start;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+            grid-column: 1 / -1;
+        }
+        .empty-state i {
+            font-size: 4rem;
+            color: #e5e7eb;
+            margin-bottom: 16px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 48px 0 24px;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+        .footer h4 {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: var(--gold);
+        }
+        .footer p,
+        .footer a {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            line-height: 2.2;
+        }
+        .footer a:hover {
+            color: var(--white);
+        }
+        .footer .socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .footer .socials a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        .footer .socials a:hover {
+            background: var(--gold);
+            color: var(--text-dark);
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .add-form .form-group {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: var(--white);
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                padding: 24px;
+                box-shadow: var(--shadow);
+                gap: 14px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+            .tabs {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .add-form .btn {
+                width: 100%;
+                justify-self: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+               <img src="https://i.imgur.com/zLjuRyK.jpg" alt="Hope4Future Foundation" style="height:50px; width:auto;" />
+                Hope<span>4Future</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <!-- HAPA NDIO BADILISHA: Media Center sasa inaelekeza kwenye media.html -->
+                <li><a href="media.html" class="active-link">Media Center</a></li>
+                <li><a href="stories.html">Success Stories</a></li>
+                <li><a href="leadership.html">Leadership</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="donate.html" class="btn btn-primary">Donate Now</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Media <span>Center</span></h1>
+            <p>
+                Explore our latest videos, photos, and publications. Stay connected
+                with our work and impact.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== MEDIA CENTER CONTENT ===== -->
+    <section style="padding:60px 0;">
+        <div class="container">
+
+            <!-- ===== TABS ===== -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="videos">
+                    <i class="fas fa-video"></i> Videos
+                </button>
+                <button class="tab-btn" data-tab="photos">
+                    <i class="fas fa-images"></i> Photos
+                </button>
+                <button class="tab-btn" data-tab="brochures">
+                    <i class="fas fa-file-pdf"></i> Brochures
+                </button>
+            </div>
+
+            <!-- ===== TAB 1: VIDEOS ===== -->
+            <div class="tab-content active" id="tab-videos">
+                <div class="add-form">
+                    <h3><i class="fas fa-plus-circle" style="color:var(--gold);"></i> Add New Video</h3>
+                    <div class="form-group">
+                        <input type="text" id="videoTitle" placeholder="Video Title" />
+                        <input type="url" id="videoUrl" placeholder="YouTube / Vimeo URL" />
+                        <textarea id="videoDesc" placeholder="Video Description" class="full-width"></textarea>
+                        <button class="btn btn-primary" onclick="addMedia('video')">
+                            <i class="fas fa-upload"></i> Publish Video
+                        </button>
+                    </div>
+                </div>
+                <div id="videoGrid" class="media-grid">
+                    <!-- Videos will be loaded here -->
+                </div>
+            </div>
+
+            <!-- ===== TAB 2: PHOTOS ===== -->
+            <div class="tab-content" id="tab-photos">
+                <div class="add-form">
+                    <h3><i class="fas fa-plus-circle" style="color:var(--gold);"></i> Add New Photo</h3>
+                    <div class="form-group">
+                        <input type="text" id="photoTitle" placeholder="Photo Title" />
+                        <input type="url" id="photoUrl" placeholder="Image URL (e.g., imgur.com/photo.jpg)" />
+                        <textarea id="photoDesc" placeholder="Photo Description" class="full-width"></textarea>
+                        <button class="btn btn-primary" onclick="addMedia('photo')">
+                            <i class="fas fa-upload"></i> Publish Photo
+                        </button>
+                    </div>
+                </div>
+                <div id="photoGrid" class="media-grid">
+                    <!-- Photos will be loaded here -->
+                </div>
+            </div>
+
+            <!-- ===== TAB 3: BROCHURES ===== -->
+            <div class="tab-content" id="tab-brochures">
+                <div class="add-form">
+                    <h3><i class="fas fa-plus-circle" style="color:var(--gold);"></i> Add New Brochure / Document</h3>
+                    <div class="form-group">
+                        <input type="text" id="brochureTitle" placeholder="Document Title" />
+                        <input type="url" id="brochureUrl" placeholder="Document URL (PDF / Google Drive)" />
+                        <textarea id="brochureDesc" placeholder="Document Description" class="full-width"></textarea>
+                        <button class="btn btn-primary" onclick="addMedia('brochure')">
+                            <i class="fas fa-upload"></i> Publish Document
+                        </button>
+                    </div>
+                </div>
+                <div id="brochureGrid" class="media-grid">
+                    <!-- Brochures will be loaded here -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo" style="color:white; font-size:1.6rem;">
+                       
+                        Hope<span style="color:var(--gold);">4Future</span>
+                    </div>
+                    <p style="margin-top:12px; max-width:320px;">
+                        Building a better future through education, skills training,
+                        protection, and economic opportunities.
+                    </p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a><br />
+                    <a href="about.html">About</a><br />
+                    <a href="programs.html">Programs</a><br />
+                    <a href="media.html">Media Center</a><br />
+                    <a href="donate.html">Donate</a>
+                </div>
+                <div>
+                    <h4>Programs</h4>
+                    <a href="programs.html">Education Support</a><br />
+                    <a href="programs.html">Vocational Training</a><br />
+                    <a href="programs.html">Child Protection</a>
+                </div>
+                <div>
+                   
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Hope4Future Foundation. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ============================================
+        // 1. HAMBURGER MENU
+        // ============================================
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // ============================================
+        // 2. TABS
+        // ============================================
+        document.querySelectorAll('.tab-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                // Remove active from all tabs
+                document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+                document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+
+                // Add active to clicked tab
+                this.classList.add('active');
+                var tabId = this.dataset.tab;
+                var tabContent = document.getElementById('tab-' + tabId);
+                if (tabContent) {
+                    tabContent.classList.add('active');
+                }
+
+                // Refresh the grid when tab changes
+                loadMedia(tabId);
+            });
+        });
+
+        // ============================================
+        // 3. MEDIA DATA - LOCAL STORAGE
+        // ============================================
+        function getMedia(type) {
+            try {
+                var data = localStorage.getItem('hope4future_media_' + type);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveMedia(type, data) {
+            localStorage.setItem('hope4future_media_' + type, JSON.stringify(data));
+        }
+
+        // ============================================
+        // 4. ADD MEDIA
+        // ============================================
+        function addMedia(type) {
+            var title, url, desc;
+
+            if (type === 'video') {
+                title = document.getElementById('videoTitle').value.trim();
+                url = document.getElementById('videoUrl').value.trim();
+                desc = document.getElementById('videoDesc').value.trim();
+                if (!title || !url) {
+                    alert('Tafadhali jaza Title na URL.');
+                    return;
+                }
+                document.getElementById('videoTitle').value = '';
+                document.getElementById('videoUrl').value = '';
+                document.getElementById('videoDesc').value = '';
+            } else if (type === 'photo') {
+                title = document.getElementById('photoTitle').value.trim();
+                url = document.getElementById('photoUrl').value.trim();
+                desc = document.getElementById('photoDesc').value.trim();
+                if (!title || !url) {
+                    alert('Tafadhali jaza Title na URL.');
+                    return;
+                }
+                document.getElementById('photoTitle').value = '';
+                document.getElementById('photoUrl').value = '';
+                document.getElementById('photoDesc').value = '';
+            } else if (type === 'brochure') {
+                title = document.getElementById('brochureTitle').value.trim();
+                url = document.getElementById('brochureUrl').value.trim();
+                desc = document.getElementById('brochureDesc').value.trim();
+                if (!title || !url) {
+                    alert('Tafadhali jaza Title na URL.');
+                    return;
+                }
+                document.getElementById('brochureTitle').value = '';
+                document.getElementById('brochureUrl').value = '';
+                document.getElementById('brochureDesc').value = '';
+            }
+
+            var items = getMedia(type);
+            var newItem = {
+                id: Date.now(),
+                title: title,
+                url: url,
+                description: desc || '',
+                date: new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                })
+            };
+            items.unshift(newItem);
+            saveMedia(type, items);
+            loadMedia(type);
+            alert('✅ ' + type.charAt(0).toUpperCase() + type.slice(1) + ' imepublishwa!');
+        }
+
+        // ============================================
+        // 5. DELETE MEDIA
+        // ============================================
+        function deleteMedia(type, id) {
+            if (!confirm('Je, una uhakika unataka kufuta hiki?')) return;
+            var items = getMedia(type);
+            items = items.filter(function(item) { return item.id !== id; });
+            saveMedia(type, items);
+            loadMedia(type);
+            alert('🗑️ Imefutwa!');
+        }
+
+        // ============================================
+        // 6. LOAD / RENDER MEDIA
+        // ============================================
+        function loadMedia(type) {
+            var gridId = type + 'Grid';
+            var grid = document.getElementById(gridId);
+            if (!grid) {
+                console.error('Grid not found:', gridId);
+                return;
+            }
+
+            var items = getMedia(type);
+
+            if (items.length === 0) {
+                var icon = type === 'video' ? 'fa-video' :
+                    type === 'photo' ? 'fa-images' : 'fa-file-pdf';
+                var label = type === 'video' ? 'videos' :
+                    type === 'photo' ? 'photos' : 'brochures';
+                grid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas ${icon}"></i>
+                            <p>No ${label} uploaded yet.</p>
+                            <p style="font-size:0.9rem; color:#9ca3af;">Use the form above to add your first ${type}.</p>
+                        </div>
+                    `;
+                return;
+            }
+
+            var html = '';
+            items.forEach(function(item) {
+                var icon = type === 'video' ? 'fa-video' :
+                    type === 'photo' ? 'fa-image' : 'fa-file-pdf';
+                var thumbHtml = '';
+
+                if (type === 'video') {
+                    var videoId = extractYouTubeId(item.url);
+                    if (videoId) {
+                        thumbHtml = `<img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="${item.title}" />`;
+                    } else {
+                        thumbHtml = `<i class="fas ${icon}"></i>`;
+                    }
+                } else if (type === 'photo') {
+                    thumbHtml = `<img src="${item.url}" alt="${item.title}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\\'fas ${icon}\\'></i>';" />`;
+                } else {
+                    thumbHtml = `<i class="fas ${icon}" style="font-size:3rem; color:var(--gold);"></i>`;
+                }
+
+                var actionLink = '';
+                if (type === 'video') {
+                    actionLink = `<a href="${item.url}" target="_blank"><i class="fas fa-play"></i> Watch</a>`;
+                } else if (type === 'brochure') {
+                    actionLink = `<a href="${item.url}" target="_blank"><i class="fas fa-download"></i> Download</a>`;
+                } else {
+                    actionLink = `<a href="${item.url}" target="_blank"><i class="fas fa-expand"></i> View Full</a>`;
+                }
+
+                // Escape HTML to prevent XSS
+                var safeTitle = item.title.replace(/[&<>"']/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    if (m === "'") return '&#039;';
+                    return m;
+                });
+                var safeDesc = (item.description || 'No description provided.').replace(/[&<>"']/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    if (m === "'") return '&#039;';
+                    return m;
+                });
+
+                html += `
+                        <div class="media-item">
+                            <button class="delete-btn" onclick="deleteMedia('${type}', ${item.id})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="media-thumb">
+                                ${thumbHtml}
+                            </div>
+                            <div class="media-body">
+                                <h4>${safeTitle}</h4>
+                                <p>${safeDesc}</p>
+                                <div class="meta">
+                                    <span><i class="far fa-calendar-alt"></i> ${item.date}</span>
+                                    ${actionLink}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+            });
+
+            grid.innerHTML = html;
+        }
+
+        // ============================================
+        // 7. EXTRACT YOUTUBE ID
+        // ============================================
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            var patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\?\/]+)/,
+                /youtube\.com\/embed\/([^&\?\/]+)/
+            ];
+            for (var i = 0; i < patterns.length; i++) {
+                var match = url.match(patterns[i]);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        // ============================================
+        // 8. INIT - Load all tabs
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMedia('video');
+            loadMedia('photo');
+            loadMedia('brochure');
+        });
+    </script>
+
+</body>
+</html>

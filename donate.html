@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hope4Future — Donate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* ============================================================
+               CSS CUSTOM PROPERTIES
+               ============================================================ */
+        :root {
+            --black: #000000ff;
+            --oxford-blue: #14213dff;
+            --orange-web: #fca311ff;
+            --platinum: #e5e5e5ff;
+            --white: #ffffffff;
+
+            --primary: var(--oxford-blue);
+            --primary-dark: var(--black);
+            --accent: var(--orange-web);
+            --bg-light: var(--platinum);
+            --text-dark: var(--black);
+            --text-light: #3a4a5a;
+
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 38px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--black);
+            box-shadow: 0 4px 18px rgba(252, 163, 17, 0.35);
+        }
+        .btn-primary:hover {
+            background: #e0950f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(252, 163, 17, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--oxford-blue);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: var(--oxford-blue);
+            color: var(--white);
+        }
+        .btn-secondary:hover {
+            background: #1e3160;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 14px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo-text .main {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--oxford-blue);
+        }
+
+        .logo-text .main span {
+            color: var(--accent);
+        }
+
+        .logo-text .sub {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--accent);
+            background: #fef3c7;
+            padding: 0 10px;
+            border-radius: 6px;
+            align-self: flex-start;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            color: var(--text-dark);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Kitufe cha Email kwenye navbar */
+        .nav-links .btn-email {
+            background: var(--accent);
+            color: var(--black);
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 18px rgba(252, 163, 17, 0.35);
+        }
+
+        .nav-links .btn-email:hover {
+            background: #e0950f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(252, 163, 17, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 140px 0 60px;
+            background: var(--oxford-blue);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(252, 163, 17, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .page-header h1 span {
+            color: var(--accent);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.85;
+            max-width: 680px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* DONATE SECTION */
+        .donate-section {
+            padding: 80px 0;
+        }
+
+        .donate-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .donate-info h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--oxford-blue);
+            margin-bottom: 16px;
+        }
+
+        .donate-info h3 span {
+            color: var(--accent);
+        }
+
+        .donate-info p {
+            color: var(--text-light);
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .donate-info .method {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--white);
+            padding: 14px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+            transition: var(--transition);
+        }
+
+        .donate-info .method:hover {
+            transform: translateX(4px);
+        }
+
+        .donate-info .method i {
+            font-size: 1.5rem;
+            color: var(--accent);
+            width: 40px;
+            text-align: center;
+        }
+
+        .donate-info .method strong {
+            color: var(--oxford-blue);
+        }
+
+        .donate-info .method p {
+            margin-bottom: 0;
+            color: var(--text-light);
+        }
+
+        /* DONATE BOX */
+        .donate-box {
+            background: var(--white);
+            padding: 40px 32px;
+            border-radius: var(--radius);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            border-top: 5px solid var(--accent);
+            text-align: center;
+        }
+
+        .donate-box .donation-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--oxford-blue);
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .donate-box .donation-title span {
+            color: var(--accent);
+        }
+
+        .donate-box .donation-subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 24px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        /* Frequency Buttons */
+        .frequency-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            background: #f1f4f8;
+            padding: 6px;
+            border-radius: 60px;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .freq-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 10px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #4a5b69;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .freq-btn.active {
+            background: var(--white);
+            color: var(--oxford-blue);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .freq-btn:hover:not(.active) {
+            background: #e6ecf3;
+        }
+
+        /* Period selector */
+        .period-group {
+            display: none;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .period-group.show {
+            display: flex;
+        }
+
+        .period-btn {
+            padding: 8px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 50px;
+            background: var(--white);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .period-btn:hover {
+            border-color: var(--accent);
+            background: #fef3c7;
+        }
+
+        .period-btn.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        /* Preset amounts */
+        .donate-amounts {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .donate-amounts .amount {
+            padding: 10px 22px;
+            border: 2px solid #e5e7eb;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--white);
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            flex: 0 1 auto;
+            min-width: 72px;
+        }
+
+        .donate-amounts .amount:hover {
+            border-color: var(--accent);
+            background: #fef3c7;
+        }
+
+        .donate-amounts .amount.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        /* Other input */
+        .donate-box .input-group {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e5e7eb;
+            border-radius: 50px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background: var(--white);
+            transition: var(--transition);
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .donate-box .input-group:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(252, 163, 17, 0.15);
+        }
+
+        .donate-box .input-group span {
+            padding: 0 16px;
+            font-weight: 700;
+            color: var(--text-light);
+            background: var(--bg-light);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        .donate-box input[type="number"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+            background: transparent;
+            font-weight: 600;
+            color: var(--oxford-blue);
+        }
+
+        .donate-box input[type="number"]::-webkit-inner-spin-button,
+        .donate-box input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .donate-box input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        /* Designation Dropdown */
+        .designation-group {
+            margin-bottom: 16px;
+            text-align: left;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .designation-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            text-align: left;
+        }
+
+        .designation-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 50px;
+            background: var(--white);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%233a4a5a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .designation-group select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(252, 163, 17, 0.15);
+            outline: none;
+        }
+
+        /* Donate Button */
+        .donate-box .btn {
+            width: 100%;
+            max-width: 320px;
+            font-size: 1.1rem;
+            padding: 16px 38px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* === Kitufe cha Email chini ya fomu === */
+        .email-button-wrapper {
+            text-align: center;
+            padding: 20px 0 10px;
+        }
+
+        .email-button-wrapper .email-btn {
+            display: inline-block;
+            background: #fca311;
+            color: #000;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid #fca311;
+        }
+
+        .email-button-wrapper .email-btn:hover {
+            background: #e0950f;
+            border-color: #e0950f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(252, 163, 17, 0.4);
+        }
+
+        .email-button-wrapper p {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        .donate-box .note {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .donate-box .note i {
+            color: var(--accent);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--black);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 48px 0 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .footer .logo-text .main {
+            color: var(--white);
+        }
+
+        .footer .logo-text .main span {
+            color: var(--accent);
+        }
+
+        .footer h4 {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .footer p,
+        .footer a {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 2.2;
+        }
+
+        .footer a:hover {
+            color: var(--white);
+        }
+
+        .footer .socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .footer .socials a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            color: rgba(255, 255, 255, 0.6);
+            transition: var(--transition);
+        }
+
+        .footer .socials a:hover {
+            background: var(--accent);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-bottom span {
+            color: var(--accent);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .donate-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: var(--white);
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                padding: 24px 32px;
+                box-shadow: var(--shadow);
+                gap: 16px;
+                border-top: 2px solid var(--accent);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .page-header {
+                padding: 120px 0 50px;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .donate-info h3 {
+                font-size: 1.5rem;
+            }
+
+            .donate-box {
+                padding: 28px 20px;
+            }
+
+            .donate-amounts .amount {
+                flex: 1 0 30%;
+                text-align: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .logo-text .main {
+                font-size: 1.3rem;
+            }
+
+            .logo-text .sub {
+                font-size: 0.8rem;
+                padding: 0 8px;
+            }
+
+            .donate-box .donation-title {
+                font-size: 22px;
+            }
+
+            .donate-box .donation-subtitle {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 12px 28px;
+                font-size: 0.9rem;
+            }
+
+            .donate-amounts .amount {
+                flex: 1 0 45%;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            .donate-box .donation-title {
+                font-size: 20px;
+            }
+
+            .donate-box .donation-subtitle {
+                font-size: 14px;
+            }
+
+            .period-btn {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-wrapper">
+                <img src="https://i.imgur.com/zLjuRyK.png" alt="Hope4Future Foundation" class="logo-icon" />
+                <div class="logo-text">
+                    <span class="main">Hope<span>4Future</span></span>
+                    <span class="sub">Foundation</span>
+                </div>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <li><a href="media.html">Media Center</a></li>
+                <li><a href="stories.html">Success Stories</a></li>
+                <li><a href="leadership.html">Leadership</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <!-- Kitufe cha EMAIL badala ya Donate Now -->
+                <li>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hope4futuretaz@gmail.com&su=Message%20from%20Website&body=Name%3A%0D%0AEmail%3A%0D%0AMessage%3A" 
+                       target="_blank" 
+                       class="btn-email">
+                        <i class="fas fa-envelope" style="margin-right: 6px;"></i> Email
+                    </a>
+                </li>
+            </ul>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Support <span>Our Work</span></h1>
+            <p>
+                Your donation creates opportunities, protects children, and builds
+                brighter futures. Every contribution makes a difference.
+            </p>
+        </div>
+    </section>
+
+    <!-- DONATE SECTION -->
+    <section class="donate-section">
+        <div class="container">
+            <div class="donate-grid">
+                <!-- LEFT: GENERAL NEEDS -->
+                <div class="donate-info">
+                    <h3>General <span>Needs</span></h3>
+                    <p>
+                        We want every child and youth in our program to have the opportunity
+                        to grow, learn, and thrive. Your generosity helps provide children
+                        and youth with the essential care and support they need to build a
+                        brighter future.
+                    </p>
+                    <p>
+                        General funds are used to meet urgent needs, supplement educational
+                        and medical expenses, support children and youth who have joined the
+                        program while they wait for sponsorship, and help cover the
+                        administrative costs of operating our non-profit.
+                    </p>
+                    <p style="margin-top: 16px; font-weight: 500; color: var(--oxford-blue);">
+                        Thank you for partnering with us to bring hope and lasting change.
+                    </p>
+
+                    <div class="method">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <strong>Education</strong>
+                            <p>School support and learning materials</p>
+                        </div>
+                    </div>
+                    <div class="method">
+                        <i class=></i>
+                        <div>
+                            <strong></strong>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="method">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <strong>Protection</strong>
+                            <p>Protecting children and youth from abuse</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: DONATION FORM -->
+                <div class="donate-box">
+                    <h2 class="donation-title">Hope4Future <span>Donation</span></h2>
+                    <p class="donation-subtitle">Select or enter an amount</p>
+
+                    <!-- Frequency -->
+                    <div class="frequency-group">
+                        <button class="freq-btn active" id="recurringBtn">🔁 Recurring</button>
+                        <button class="freq-btn" id="oneTimeBtn">⚡ One Time</button>
+                    </div>
+
+                    <!-- Period selector -->
+                    <div class="period-group show" id="periodGroup">
+                        <button class="period-btn active" data-period="biweekly">Bi-Weekly</button>
+                        <button class="period-btn" data-period="2months">Every 2 Months</button>
+                        <button class="period-btn" data-period="3months">Every 3 Months</button>
+                        <button class="period-btn" data-period="6months">Every 6 Months</button>
+                    </div>
+
+                    <!-- Preset amounts -->
+                    <div class="donate-amounts" id="amountGrid">
+                        <!-- populated by JS -->
+                    </div>
+
+                    <!-- Other -->
+                    <div class="input-group">
+                        <span>Other</span>
+                        <span>$</span>
+                        <input type="number" id="customAmount" placeholder="0.00" min="1" step="1" />
+                    </div>
+
+                    <!-- Designation Dropdown -->
+                    <div class="designation-group">
+                        <label for="designationSelect">Select a designation to donate to</label>
+                        <select id="designationSelect">
+                            <option value="general">School shoes</option>
+                            <option value="ongoing_hope">School uniform</option>
+                            <option value="needs">Daily school lunch</option>
+                            <option value="school_expansion">Exercise books / Notebooks</option>
+                            <option value="ongoing_school">Health services like health insurance</option>
+                            <option value="project">Land to start the school</option>
+                            <option value="hope_house_expansion">School bag</option>
+                            <option value="class_of_2036">Sanitary pads for girls</option>
+                        </select>
+                    </div>
+
+                   
+
+                    <!-- === KITUFE CHA EMAIL CHINI (ulichotuma) === -->
+                    <div class="email-button-wrapper">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hope4futuretaz@gmail.com&su=Message%20from%20Website&body=Name%3A%0D%0AEmail%3A%0D%0AMessage%3A" 
+                           target="_blank" 
+                           class="email-btn">
+                            <i class="fas fa-envelope" style="margin-right: 8px;"></i> Email Us
+                        </a>
+                        <p>Clicking will open Gmail in a new tab. Fill in your details and we'll respond soon.</p>
+                    </div>
+
+                    <p class="note">
+                        <i class="fas fa-lock"></i> Your donation is secure and confidential.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="logo-wrapper" style="margin-bottom:12px;">
+                        <img src="https://i.imgur.com/zLjuRyK.png" alt="Hope4Future Foundation" style="height:48px; width:auto;" />
+                        <div class="logo-text">
+                            <span class="main">Hope<span>4Future</span></span>
+                            <span class="sub" style="background:rgba(252,163,17,0.15); color:var(--accent);">Foundation</span>
+                        </div>
+                    </a>
+                    <p style="max-width:320px; margin-top:6px;">
+                        Building a better future through education, skills training,
+                        protection, and economic opportunities.
+                    </p>
+                    <div class="socials">
+                        <a href="https://web.facebook.com/profile.php?id=61591616998779" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtu.be/XLXQ8J5C6Qo?si=dbpzmxd0iz8FwXCa" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a><br />
+                    <a href="about.html">About</a><br />
+                    <a href="programs.html">Programs</a><br />
+                    <a href="donate.html">Donate</a>
+                </div>
+
+                <div>
+                    <h4>Programs</h4>
+                    <a href="programs.html">Education Support</a><br />
+                    <a href="programs.html">Vocational Training</a><br />
+                    <a href="programs.html">Child Protection</a>
+                </div>
+
+                <div>
+                    <h4>Contact Us</h4>
+                    <p>P.O. Box 281, Hai Kilimanjaro</p>
+                    <p>+255 762231902</p>
+                    <p>hope4futuretaz@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                &copy; 2026 <span>Hope4Future</span> Foundation. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        (function() {
+            'use strict';
+
+            // =========================================================
+            // DATA: amount presets per period
+            // =========================================================
+            const periodAmounts = {
+                biweekly: [25, 50, 100, 250],
+                '2months': [100, 200, 400, 1000],
+                '3months': [150, 300, 600, 1500],
+                '6months': [300, 600, 1200, 3000]
+            };
+
+            const oneTimeAmounts = [50, 100, 200, 500];
+
+            let currentFrequency = 'recurring';
+            let currentPeriod = 'biweekly';
+            let currentAmounts = periodAmounts[currentPeriod];
+
+            // DOM refs
+            const recurringBtn = document.getElementById('recurringBtn');
+            const oneTimeBtn = document.getElementById('oneTimeBtn');
+            const periodGroup = document.getElementById('periodGroup');
+            const amountGrid = document.getElementById('amountGrid');
+            const customInput = document.getElementById('customAmount');
+            const donateBtn = document.getElementById('donateBtn');
+            const designationSelect = document.getElementById('designationSelect');
+
+            // =========================================================
+            // NAVBAR
+            // =========================================================
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('open');
+                const icon = this.querySelector('i');
+                icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('open');
+                    document.querySelector('#hamburger i').className = 'fas fa-bars';
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                const nav = document.querySelector('.navbar .container');
+                if (!nav.contains(e.target) && navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                    document.querySelector('#hamburger i').className = 'fas fa-bars';
+                }
+            });
+
+            // Navbar shadow
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                navbar.style.boxShadow = window.pageYOffset > 20 ?
+                    '0 4px 30px rgba(0,0,0,0.12)' :
+                    '0 4px 24px rgba(0,0,0,0.08)';
+            });
+
+            // =========================================================
+            // RENDER AMOUNTS
+            // =========================================================
+            function renderAmounts(amounts, highlightIndex) {
+                amountGrid.innerHTML = '';
+                amounts.forEach(function(val, idx) {
+                    const btn = document.createElement('button');
+                    btn.className = 'amount' + (idx === highlightIndex ? ' active' : '');
+                    btn.dataset.value = val;
+                    btn.textContent = '$' + val;
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.amount').forEach(function(b) { b.classList.remove(
+                            'active'); });
+                        this.classList.add('active');
+                        customInput.value = '';
+                    });
+                    amountGrid.appendChild(btn);
+                });
+            }
+
+            // =========================================================
+            // UPDATE PERIOD
+            // =========================================================
+            function updateForPeriod(period) {
+                currentPeriod = period;
+                currentAmounts = periodAmounts[period];
+                renderAmounts(currentAmounts, 0);
+                document.querySelectorAll('.period-btn').forEach(function(btn) {
+                    btn.classList.toggle('active', btn.dataset.period === period);
+                });
+            }
+
+            // =========================================================
+            // FREQUENCY SWITCH
+            // =========================================================
+            function setFrequency(freq) {
+                currentFrequency = freq;
+                if (freq === 'recurring') {
+                    recurringBtn.classList.add('active');
+                    oneTimeBtn.classList.remove('active');
+                    periodGroup.classList.add('show');
+                    updateForPeriod(currentPeriod);
+                } else {
+                    recurringBtn.classList.remove('active');
+                    oneTimeBtn.classList.add('active');
+                    periodGroup.classList.remove('show');
+                    currentAmounts = oneTimeAmounts;
+                    renderAmounts(oneTimeAmounts, 0);
+                }
+                customInput.value = '';
+            }
+
+            // =========================================================
+            // EVENT LISTENERS
+            // =========================================================
+            recurringBtn.addEventListener('click', function() { setFrequency('recurring'); });
+            oneTimeBtn.addEventListener('click', function() { setFrequency('onetime'); });
+
+            document.querySelectorAll('.period-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    if (currentFrequency === 'recurring') {
+                        updateForPeriod(this.dataset.period);
+                        customInput.value = '';
+                    }
+                });
+            });
+
+            customInput.addEventListener('input', function() {
+                if (this.value.trim() !== '') {
+                    document.querySelectorAll('.amount').forEach(function(b) { b.classList.remove('active'); });
+                }
+            });
+
+            // =========================================================
+            // DONATE BUTTON
+            // =========================================================
+            donateBtn.addEventListener('click', function() {
+                let amount = 0;
+                const activePreset = document.querySelector('.amount.active');
+                if (activePreset) {
+                    amount = parseFloat(activePreset.dataset.value);
+                }
+
+                const customVal = parseFloat(customInput.value.trim());
+                if (customVal && customVal > 0) {
+                    amount = customVal;
+                }
+
+                if (!amount || amount <= 0) {
+                    alert('Please select an amount or enter a valid amount (more than $0).');
+                    return;
+                }
+
+                const isRecurring = currentFrequency === 'recurring';
+                let freqText = isRecurring ? 'Recurring' : 'One Time';
+                if (isRecurring) {
+                    const periodMap = {
+                        biweekly: 'Bi-Weekly',
+                        '2months': 'Every 2 Months',
+                        '3months': 'Every 3 Months',
+                        '6months': 'Every 6 Months'
+                    };
+                    freqText += ' (' + periodMap[currentPeriod] + ')';
+                }
+
+                const designation = designationSelect.options[designationSelect.selectedIndex].text;
+
+                alert(
+                    'Thank you for your donation of $' + amount.toFixed(2) +
+                    ' (' + freqText + ')!\n\n' +
+                    'Designation: ' + designation + '\n\n' +
+                    'These funds will help empower children and youth of Hope4Future Foundation.\n' +
+                    'A confirmation message will be sent to your email.'
+                );
+            });
+
+            // =========================================================
+            // INIT
+            // =========================================================
+            setFrequency('recurring');
+            updateForPeriod('biweekly');
+
+        })();
+    </script>
+
+</body>
+</html>
