@@ -1,0 +1,17 @@
+backend:
+  name: github
+  repo: jina-lako/repo-lako  # Badilisha na jina halisi la repo yako
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "stories"
+    label: "Success Stories"
+    folder: "_stories/"
+    create: true
+    fields:
+      - { name: "title", label: "Kichwa", widget: "string" }
+      - { name: "body", label: "Maudhui", widget: "markdown" }
+      - { name: "image", label: "Picha", widget: "image" }

@@ -1,0 +1,11 @@
+repo-yako/
+├── admin/
+│   ├── index.html    (faili iliyo na msimbo wa CMS)
+│   └── config.yml    (faili ya usanidi)
+├── assets/
+│   └── uploads/      (folda tupu, picha zitawekwa hapa)
+├── _stories/         (folda tupu, makala za stories zitawekwa hapa)
+├── index.html        (tovuti yako kuu iliyopo)
+├── about.html        (iliyopo)
+├── programs.html     (iliyopo)
+└── ... (faili zako nyingine)
